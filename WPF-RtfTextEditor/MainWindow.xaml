@@ -1,0 +1,109 @@
+﻿<Window x:Class="WPF_RtfTextEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="VolkTextEd" 
+        Height="640" MinHeight="640" 
+        Width="800" MinWidth="800"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Loaded="Window_Loaded">
+    <Border Background="#d8dee9" CornerRadius="20"
+            MouseDown="Border_MouseDown">
+        <Grid>
+            <!--composition of main window-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+
+            <!--main menu with text edit functions-->
+            <Menu Height="30" Margin="5,10,5,0" 
+                  Grid.Row="0" Grid.Column="0"
+                  Background="#d8dee9" FontFamily="Century Gothic">
+
+                <MenuItem Header="File" Height="27">
+                    <MenuItem Header="Open" Click="Open"/>
+                    <MenuItem Header="Save" Click="Save"/>
+                    <MenuItem Header="Save as" Click="SaveAs"/>
+                    <MenuItem Header="Save and exit" Click="SaveExit"/>
+                    <MenuItem Header="Exit" Click="Exit"/>
+                </MenuItem>
+
+                <MenuItem Header="Edit">
+                    <MenuItem Header="Cut" Command="Cut"/>
+                    <MenuItem Header="Copy" Command="Copy"/>
+                    <MenuItem Header="Select All" Command="SelectAll"/>
+                    <MenuItem Header="Paste" Command="Paste"/>
+                </MenuItem>
+
+                <MenuItem Header="Format">
+                    <MenuItem Command="ToggleBold" Header="Bold"/>
+                    <MenuItem Command="ToggleItalic" Header="Italic"/>
+                    <MenuItem Command="ToggleUnderline" Header="Underline"/>
+                </MenuItem>
+
+                <MenuItem Header="Align">
+                    <MenuItem Command="AlignLeft"/>
+                    <MenuItem Command="AlignCenter"/>
+                    <MenuItem Command="AlignRight"/>
+                </MenuItem>
+
+                <MenuItem Header="Lists">
+                    <MenuItem Command="ToggleBullets" 
+                              Header="Marked"/>
+                    <MenuItem Command="ToggleNumbering" 
+                              Header="Numbered"/>
+                </MenuItem>
+
+                <Button Click="PrintButton_Click" 
+                        Height="25" Width="25"
+                        Background="Transparent" BorderThickness="0">
+                    <Image Source="Pictures/printer_button.png" 
+                           Height="23" Width="23"/>
+                </Button>
+
+                <ComboBox x:Name="TextFontFamily" 
+                          Height="25" Width="240"
+                          SelectionChanged="ChangedOfFontFamily"/>
+
+                <ComboBox x:Name="FontSize" 
+                          Height="25" Width="50"
+                          SelectionChanged="ChangedOfFontSize"/>
+
+                <ComboBox x:Name="IndentSize" 
+                          Height="25" Width="50"
+                          SelectionChanged="ChangedOfIndentSize"/>
+
+                <xctk:ColorPicker SelectedColorChanged="SelectedColorOfForegroundChanged" 
+                                  Width="50" ToolBar.OverflowMode="Always">
+                </xctk:ColorPicker>
+
+                <xctk:ColorPicker SelectedColorChanged="SelectedColorOfBackgroundChanged" 
+                                  Width="50" ToolBar.OverflowMode="Always">
+                </xctk:ColorPicker>
+            </Menu>
+
+            <!--button for closing this window-->
+            <Button Click="CloseButton_Click"
+                    Grid.Row="0" Grid.Column="1"
+                    Background="Transparent" BorderThickness="0" 
+                    Margin="0,10,15,5">
+                <Image Source="Pictures/close_button.png" Width="23"/>
+            </Button>
+
+            <!--main text field-->
+            <RichTextBox x:Name="MainText" Grid.Row="1" 
+                         Grid.Column="0" Grid.ColumnSpan="2"
+                         Margin="10,4,10,10" Background="#eceff4"/>
+        </Grid>
+    </Border>
+</Window>
